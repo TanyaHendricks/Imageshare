@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<head>
+    <style>
+        .image-thumbnail{
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>    
+</head>
+<body>
+    <h2>Gallery</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+                <div class="card my-2">
+                    <div class="card-header">
+                        Albums
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">All</li>
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        <a href="{% url 'add' %}" class="btn btn-dark btn-sml m-1" >Add Photo</a>                       
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="card my-2">
+                            <img class="image-thumbnail" 
+                                src="https://helderbergnaturereserve.co.za/wp-content/uploads/2018/12/helderberg-nature-reserve-western-cape.jpg" 
+                                alt="Card image cap">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Geolocation</li>
+                                <li class="list-group-item">Tags</li>
+                                <li class="list-group-item">Captured date</li>
+                                <li class="list-group-item">Captured by</li>
+                                <li class="list-group-item">Album: Helderberg</li>
+                            </ul>                        
+                            <a href="{% url 'photo' 5 %}" class="btn btn-outline-dark btn-sml m-1">View</a>                            
+                        </div>                                   
+                    </div> 
+                    
+                    <div class="col-md-4">
+                        <div class="card my-2">
+                            <img class="image-thumbnail" 
+                                src="https://sncdn.com/imagecache/db/id/520184/go155396.jpg" 
+                                alt="Card image cap">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Geolocation</li>
+                                <li class="list-group-item">Tags</li>
+                                <li class="list-group-item">Captured date</li>
+                                <li class="list-group-item">Captured by</li>
+                                <li class="list-group-item">Album: Helderberg</li>
+                            </ul>                        
+                            <a href="{% url 'photo' 5 %}" class="btn btn-outline-dark btn-sml m-1">View</a>                            
+                        </div>                                   
+                    </div> 
+
+                    <div class="col-md-4">
+                        <div class="card my-2">
+                            <img class="image-thumbnail" 
+                                src="https://helderbergnaturereserve.co.za/wp-content/uploads/2018/12/helderberg-nature-reserve-western-cape.jpg" 
+                                alt="Card image cap">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Geolocation</li>
+                                <li class="list-group-item">Tags</li>
+                                <li class="list-group-item">Captured date</li>
+                                <li class="list-group-item">Captured by</li>
+                                <li class="list-group-item">Album: Helderberg</li>
+                            </ul>                        
+                            <a href="{% url 'photo' 5 %}" class="btn btn-outline-dark btn-sml m-1">View</a>                            
+                        </div>                                   
+                    </div> 
+
+                    <div class="col-md-4">
+                        <div class="card my-2">
+                            <img class="image-thumbnail" 
+                                src="https://helderbergnaturereserve.co.za/wp-content/uploads/2018/12/helderberg-nature-reserve-western-cape.jpg" 
+                                alt="Card image cap">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Geolocation</li>
+                                <li class="list-group-item">Tags</li>
+                                <li class="list-group-item">Captured date</li>
+                                <li class="list-group-item">Captured by</li>
+                                <li class="list-group-item">Album: Helderberg</li>
+                            </ul>                        
+                            <a href="{% url 'photo' 5 %}" class="btn btn-outline-dark btn-sml m-1">View</a>                            
+                        </div>                                   
+                    </div> 
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+{% endblock content %}
