@@ -2,21 +2,39 @@ from django.db import models
 import uuid
 
 # Create your models here.
-
+ 
 class Image(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     url = models.CharField(max_length=2000, null=False, blank=False)
+    def __str__(self):
+        return self.url
 
-class MetaData(models.Model):
+class Tag(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    name = models.CharField(max_length=200, null=False, blank=False, unique=True)
+    def __str__(self):
+        return self.name
+
+class Capturer(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    alias = models.CharField(max_length=20, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=20, null=False, blank=False)
+    surname = models.CharField(max_length=20, null=False, blank=False)
+    def __str__(self):
+        return self.alias 
+
+class Metadata(models.Model):
+    image_id = models.OneToOneField(Image, on_delete=models.CASCADE, null=False, blank=False)
     geolocation_latitude = models.DecimalField(max_digits=8, decimal_places=4, 
         null=False, blank=False)
     geolocation_longitude = models.DecimalField(max_digits=9, decimal_places=4,
         null=False, blank=False)
     captured_date = models.DateTimeField(null=False, blank=False)
-    captured_by = models.CharField(max_length=20, null=False, blank=False)
+    capturer_id = models.ForeignKey(Capturer, on_delete=models.RESTRICT)
+    tags = models.ManyToManyField(Tag, null=False, blank=False)
+    def __str__(self):
+        return Image.url
+    
 
-class Tag(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    description = models.CharField(max_length=20, null=False, blank=False)
+
 
