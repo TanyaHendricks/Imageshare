@@ -27,15 +27,15 @@ class Capturer(models.Model):
 
 class Metadata(models.Model):
     image_id = models.OneToOneField(Image, on_delete=models.CASCADE, null=False, blank=False)
-    geolocation_latitude = models.DecimalField(max_digits=8, decimal_places=4, 
+    geolocation_latitude = models.DecimalField(max_digits=8, decimal_places=6, 
         null=False, blank=False)
-    geolocation_longitude = models.DecimalField(max_digits=9, decimal_places=4,
+    geolocation_longitude = models.DecimalField(max_digits=9, decimal_places=6,
         null=False, blank=False)
     captured_date = models.DateTimeField(null=False, blank=False)
     capturer_id = models.ForeignKey(Capturer, on_delete=models.RESTRICT)
-    tags = models.ManyToManyField(Tag, null=False, blank=False, default="Unknown")
+    tags = models.ManyToManyField(Tag, blank=False, default="Unknown")
     def __str__(self):
-        return Image.url
+        return str(self.image_id)
 
 class Album(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
