@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Album, Image, Metadata
+from .forms import ImageForm, MetadataForm
 
 import datetime
 
@@ -14,7 +15,17 @@ def gallery(request):
 
 def view_photo(request, pk):
     image = Image.objects.get(id=pk) 
-    return render(request, 'photos/photo.html', {'image': image})  
+    metadatas = Metadata.objects.get(image_id=pk)
+    metadata_tags = metadatas.tags.all()
+    context = {
+        'image': image,
+        'metadata_tags': metadata_tags}    
+    return render(request, 'photos/photo.html', context)  
 
 def add_photo(request):
-    return render(request, 'photos/add.html')  
+    image_form = ImageForm()
+    metadata_form = MetadataForm()
+    context = {
+        'image_form': image_form,
+        'metadata_form': metadata_form}                         
+    return render(request, "photos/photo_form.html", context)

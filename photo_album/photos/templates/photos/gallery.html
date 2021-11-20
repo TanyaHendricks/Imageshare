@@ -1,12 +1,11 @@
 {% extends 'main.html' %}
-
 {% block content %}
+
 <head>
     <style>
         .image-thumbnail{
             height: 200px;
-            object-fit: cover;
-        }
+            object-fit: cover;}
     </style>    
 </head>
 <body>
@@ -23,8 +22,7 @@
                         <li class="list-group-item">All</li>
                         {% for album in albums %}
                         <li class="list-group-item">{{album.name}}</li>
-                        {% endfor %}
-                        <a href="{% url 'add' %}" class="btn btn-outline-dark btn-sml m-1" >Add Photo</a>   
+                        {% endfor %}                        
                     </ul>
                 </div>
 
@@ -39,11 +37,10 @@
                                 src={{image.image.url}}
                                 alt="Card image cap">                                                       
                             <ul class="list-group list-group-flush">                                
-                                <li class="list-group-item">Album : {{image.album_id}}</li>  
-                                <li class="list-group-item">Tags : {{ image.metadata.tags }}</li>               
-                                <li class="list-group-item">Geolocation : {{ image.metadata.geolocation_latitude }}, {{ image.metadata.geolocation_longitude }}</li>                         
-                                <li class="list-group-item">Captured on : {{ image.metadata.captured_date | date:"Y-m-d" }}</li>
-                                <li class="list-group-item">Captured by : {{ image.metadata.capturer_id }}</li>                                                       
+                                <li class="list-group-item">Album : {{image.album_id}}</li>                                  
+                                <li class="list-group-item">Geolocation : {{image.metadata.geolocation_latitude}}, {{image.metadata.geolocation_longitude}}</li>                         
+                                <li class="list-group-item">Captured on : {{image.metadata.captured_date | date:"Y-m-d"}}</li>
+                                <li class="list-group-item">Captured by : {{image.metadata.capturer_id}}</li>                                                       
                             </ul>                                           
                             <a href="{% url 'photo' image.id %}" class="btn btn-outline-dark btn-sml m-1">View</a>                            
                         </div>                                   
@@ -51,12 +48,11 @@
                     {% empty %}
                     <h3>No photos yet...</h3>
                     {% endfor %}
-                    
-           
+                               
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>    
 </body>
+
 {% endblock content %}
