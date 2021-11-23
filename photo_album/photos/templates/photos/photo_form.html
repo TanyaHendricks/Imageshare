@@ -4,18 +4,17 @@
 <h2>Form</h2>
 <hr>
 <a href="{% url 'gallery' %}" class="btn btn-outline-dark btn-sml m-1">Back</a>
+<h5>Image</h5>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {{image_form.as_p}}
+    <input type="submit">
+</form>
+<hr>
+<h5>Meta-data</h5>
 <form method="POST">
     {% csrf_token %} 
-    
-    {% for field in image_form %} 
-    {{field.label}}
-    {{field}}
-    {% endfor %}
-    <p></p>
-    {% for field in metadata_form %} 
-    {{field.label}}
-    {{field}}
-    {% endfor %}
+    {{metadata_form.as_p}}
     <input type="submit">
 </form>
 
