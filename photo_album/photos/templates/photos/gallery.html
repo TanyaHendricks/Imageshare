@@ -1,58 +1,94 @@
-{% extends 'main.html' %}
-{% block content %}
+{% extends 'main.html' %} {% block content %}
 
 <head>
-    <style>
-        .image-thumbnail{
-            height: 200px;
-            object-fit: cover;}
-    </style>    
+  <style>
+    .image-thumbnail {
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
-    <h2>Gallery</h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="{% url 'add_photo' %}"  class="btn btn-outline-dark btn-sml m-1">Add Photo</a>
-                <div class="card my-2">
-                    <div class="card-header">
-                        Albums
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">All</li>
-                        {% for album in albums %}
-                        <li class="list-group-item">{{album.name}}</li>
-                        {% endfor %}                        
-                    </ul>
-                </div>
 
-            </div>
-            <div class="col-md-9">
-                <div class="row">
-
-                    {% for image in images %}
-                    <div class="col-md-4">
-                        <div class="card my-2">
-                            <img class="image-thumbnail" 
-                                src={{image.image.url}}
-                                alt="Card image cap">                                                       
-                            <ul class="list-group list-group-flush">                                
-                                <li class="list-group-item">Album : {{image.album_id}}</li>                                  
-                                <li class="list-group-item">Geolocation : {{image.metadata.geolocation_latitude}}, {{image.metadata.geolocation_longitude}}</li>                         
-                                <li class="list-group-item">Captured on : {{image.metadata.captured_date | date:"Y-m-d"}}</li>
-                                <li class="list-group-item">Captured by : {{image.metadata.capturer_id}}</li>                                                       
-                            </ul>                                           
-                            <a href="{% url 'photo' image.id %}" class="btn btn-outline-dark btn-sml m-1">View</a>                            
-                        </div>                                   
-                    </div> 
-                    {% empty %}
-                    <h3>No photos yet...</h3>
-                    {% endfor %}
-                               
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+       
+  <!--       <div class="card my-2">
+          <div class="card-header">Albums</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">All</li>
+            {% for album in albums %}
+            <li class="list-group-item">{{album.name}}</li>
+            {% endfor %}
+          </ul>
         </div>
-    </div>    
+      </div> -->
+
+<!-- Main Section -->
+<main class="projects"></main>
+  <section class="hero-section text-center">
+    <div class="container container--narrow">
+      <div class="hero-section__box">
+        <h2>Search for <span>Albums</span></h2>
+      </div>
+      <div class="hero-section__search">
+        <form id='searchForm' class="form" action="{% url 'gallery' %}" method="POST">
+          <div class="form__field" >
+            <label for="formInput#search"></label>
+            
+            <input class="input input--text" id="formInput#search" type="text" name="search_query"
+              placeholder="Search by Album Name" />
+          </div>
+          <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+        </form>
+
+        
+
+        
+      </div>
+      </div>
+  </section>
+     
+<!-- Search Result: DevList -->
+  <section class="projectsList">
+    <div class="container">
+      <div class="grid grid--three">        
+        {% for image in images %}
+        <div class="column">
+          <div class="card project">
+            <img
+              class="image-thumbnail"
+              src="{{image.image.url}}"
+              alt="Card image cap"/>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Album : {{image.album_id}}</li>
+              <li class="list-group-item">
+                Geolocation : {{image.metadata.geolocation_latitude}},
+                {{image.metadata.geolocation_longitude}}
+              </li>
+              <li class="list-group-item">
+                Captured on : {{image.metadata.captured_date | date:"Y-m-d"}}
+              </li>
+              <li class="list-group-item">
+                Captured by : {{image.metadata.capturer_id}}
+              </li>
+            </ul>
+              <a
+                href="{% url 'photo' image.id %}"
+                class="btn btn-outline-dark btn-sml m-1"
+                >View</a
+                >
+          </div>
+        </div>
+        {% empty %}
+        <h3>No photos yet...</h3>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+</main>
 </body>
 
 {% endblock content %}

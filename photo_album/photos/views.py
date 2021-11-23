@@ -3,10 +3,16 @@ from .models import Album, Image, Metadata
 from .forms import ImageForm, MetadataForm
 
 
-# Create your views here.
 def view_gallery(request):
-    albums = Album.objects.all()
-    images = Image.objects.all()
+    if request.method == "POST":
+        search_query = request.POST["search_query"]
+        album = Album.objects.get(name__contains=search_query)
+        images = Image.objects.filter(album_id=album.id)
+
+    else:
+        albums = Album.objects.all()
+        images = Image.objects.all()
+
     context = {
         'albums': albums,
         'images': images}
@@ -52,7 +58,7 @@ def update_photo(request, pk):
     image_form = ImageForm(instance=image)
 
     if request.method == 'POST':
-        image_form = ImageForm(request.POST, instance=image)
+        image_form = ImageForm(request.POST, request.FILES, instance=image)
         if image_form.is_valid():
             image_form.save()
             return redirect('add_photo')

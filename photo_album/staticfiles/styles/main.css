@@ -1,0 +1,8 @@
+.image-logo {
+  height: 50px;
+  object-fit: cover;
+}
+.image-thumbnail {
+  height: 200px;
+  object-fit: cover;
+}
