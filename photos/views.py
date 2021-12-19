@@ -1,20 +1,20 @@
 from django.shortcuts import redirect, render
 from .models import Album, Image, Metadata
 from .forms import ImageForm, MetadataForm
+from django.contrib.auth.decorators import login_required
 
 
 def view_gallery(request):
-    if request.method == "POST":
-        search_query = request.POST["search_query"]
-        album = Album.objects.get(name__contains=search_query)
-        images = Image.objects.filter(album_id=album.id)
+    search_query = ''
 
-    else:
-        albums = Album.objects.all()
-        images = Image.objects.all()
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
 
+    album = Album.objects.filter(name__icontains=search_query)
+    images = Image.objects.filter(album_id__in=(album.values_list('id', flat=True)))
+ 
     context = {
-        'albums': albums,
+        'albums': album,
         'images': images}
     return render(request, 'photos/gallery.html', context)
 
@@ -29,7 +29,9 @@ def view_photo(request, pk):
     return render(request, 'photos/photo.html', context)
 
 
+@login_required(login_url="login")
 def add_photo(request):
+    profile = request.user.profile
     image_form = ImageForm()
     metadata_form = MetadataForm()
 
@@ -38,9 +40,9 @@ def add_photo(request):
         if image_form.is_valid():
             image = image_form.save(commit=False)
             metadata_form.image_id = image.id
+            image.owner = profile
             image_form.save()
-            return redirect('add_photo')
-
+                    
     if request.method == 'POST':
         metadata_form = MetadataForm(request.POST)
         if metadata_form.is_valid():
@@ -53,6 +55,7 @@ def add_photo(request):
     return render(request, 'photos/photo_form.html', context)
 
 
+@login_required(login_url="login")
 def update_photo(request, pk):
     image = Image.objects.get(id=pk)
     image_form = ImageForm(instance=image)
@@ -78,6 +81,7 @@ def update_photo(request, pk):
     return render(request, 'photos/photo_form.html', context)
 
 
+@login_required(login_url="login")
 def delete_photo(request, pk):
     image = Image.objects.get(id=pk)
     if request.method == 'POST':

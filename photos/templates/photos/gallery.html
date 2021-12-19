@@ -8,12 +8,7 @@
     }
   </style>
 </head>
-<body>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-  
+ 
 
 <!-- Main Section -->
 <main class="projects"></main>
@@ -23,10 +18,9 @@
         <h2>Search for <span>Albums</span></h2>
       </div>
       <div class="hero-section__search">
-        <form id='searchForm' class="form" action="{% url 'gallery' %}" method="POST">
+        <form id='searchForm' class="form" action="{% url 'gallery' %}" method="get">
           <div class="form__field" >
-            <label for="formInput#search"></label>
-            
+            <label for="formInput#search">Search Photographers </label>            
             <input class="input input--text" id="formInput#search" type="text" name="search_query"
               placeholder="Search by Album Name" />
           </div>
@@ -56,13 +50,13 @@
               <li class="list-group-item">
                 Captured on : {{image.metadata.captured_date | date:"Y-m-d"}}
               </li>
-              <li class="list-group-item">
-                Captured by : {{image.metadata.capturer_id}}
+              <li class="list-group-item"> 
+                Owned by : {{image.owner.name}}
               </li>
             </ul>
               <a
                 href="{% url 'photo' image.id %}"
-                class="btn btn-outline-dark btn-sml m-1"
+                class="btn btn--sub"
                 >View</a
                 >
           </div>
@@ -73,8 +67,7 @@
       </div>
     </div>
   </section>
-
 </main>
-</body>
+
 
 {% endblock content %}

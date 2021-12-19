@@ -1,0 +1,48 @@
+{% extends 'main.html' %} {% block content %}
+
+<!-- Main Section -->
+<main class="home">
+  <section class="hero-section text-center">
+    <div class="container container--narrow">
+      <div class="hero-section__box">
+        <h2>CONNECT WITH <span>PHOTOGRAPHERS</span></h2>
+        <h2>FROM AROUND THE WORLD</h2>
+      </div>
+
+      <div class="hero-section__search">
+        <form id="searchForm" class="form" action="#" method="get">
+          <div class="form__field">
+            <label for="formInput#search">Search Developers </label>
+            <input
+              class="input input--text"
+              id="formInput#search"
+              type="text"
+              name="text"
+              placeholder="Search by photographer name"
+            />
+          </div>
+
+          <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- Search Result: DevList -->
+  <section class="devlist">
+    <div class="container">
+      <div class="grid grid--three">
+        {% for profile in profiles %}
+        <div class="card card--dark" style="width: 320px; margin: 20px">
+          <div class="card__body">
+            <h4>{{profile.name}}</h4>
+            <p>Email: {{profile.email}}</p>
+            <p>Based in: {{profile.location}}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock content %}
