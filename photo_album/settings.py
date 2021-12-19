@@ -24,7 +24,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nirla.settings")
 SECRET_KEY = 'django-insecure-o87vh7&u9o3j8g(8@l*be$*jwl4oa5trer$9p0u&tplm(ereeu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'imeeg-share.herokuapp.com']
 
